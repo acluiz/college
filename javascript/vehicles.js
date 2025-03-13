@@ -45,9 +45,21 @@ class Vehicle {
   }
 
   vehicleInfoStr() {
-    return `${this.color} ${this.brand} ${this.year}\nLicense plate: ${
-      this.license_plate
-    }, Owner: ${this.owner}\nMust pay annual taxes?: ${this.mustPayTaxes()}`;
+    let infosStr = "";
+
+    infosStr += `${this.color} ${this.brand} ${this.year}\n`;
+    infosStr += `License plate: ${this.license_plate}, Owner: ${this.owner}\n`;
+    infosStr += `Must pay annual taxes?: ${this.mustPayTaxes()}\n`;
+
+    if (this instanceof Car) {
+      infosStr += `${this.horsepower} horsepower`;
+    }
+
+    if (this instanceof Motorcycle) {
+      infosStr += `${this.engine_displacement}cc engine displacement`;
+    }
+
+    return infosStr;
   }
 }
 
@@ -80,9 +92,9 @@ class Car extends Vehicle {
   }
 }
 
-const firstVehicle = new Car("John", "20AL54C", "Audi", "Black", 2015, 160);
+const vehicle1 = new Car("John", "20AL54C", "Audi", "Black", 2015, 160);
 
-const secondVehicle = new Motorcycle(
+const vehicle2 = new Motorcycle(
   "Vanessa",
   "29BC45",
   "Yamaha",
@@ -91,14 +103,6 @@ const secondVehicle = new Motorcycle(
   300
 );
 
-console.log(
-  `${firstVehicle.vehicleInfoStr()}\n${firstVehicle.horsepower} horsepower`
-);
-
+console.log(`${vehicle1.vehicleInfoStr()}`);
 console.log(`\n`);
-
-console.log(
-  `${secondVehicle.vehicleInfoStr()}\n${
-    secondVehicle.engine_displacement
-  } engine displacement`
-);
+console.log(`${vehicle2.vehicleInfoStr()}`);
