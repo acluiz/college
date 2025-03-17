@@ -7,14 +7,23 @@ const prompt = promptsync({ sigint: true });
 
 export class Ferramenta {
   #nome;
+  #limiteUso;
 
-  constructor(nome) {
+  constructor(nome, limiteUso) {
     validate(nome, "String");
     this.#nome = nome;
+
+    if (limiteUso) {
+      this.#limiteUso = limiteUso;
+    }
   }
 
   get nome() {
     return this.#nome;
+  }
+
+  get limiteUso() {
+    return this.#limiteUso;
   }
 
   usar() {
@@ -132,7 +141,11 @@ export class Sala {
 
   ferramentasDisponiveis() {
     let arrFer = [...this.#ferramentas.values()];
-    return arrFer.map((f) => f.nome);
+
+    return arrFer.map((f) => {
+      const limiteUso = f.limiteUso ? ` (limite de ${f.limiteUso})` : "";
+      return `${f.nome}${limiteUso}`;
+    });
   }
 
   portasDisponiveis() {
@@ -245,7 +258,7 @@ export class Engine {
     while (!this.#venceu && !this.#tipo_derrota) {
       console.log("-------------------------");
       console.log(this.salaCorrente.textoDescricao());
-      acao = prompt("O que voce deseja fazer? ");
+      acao = prompt("O que você deseja fazer? ");
       tokens = acao.split(" ");
       switch (tokens[0]) {
         case "fim":
@@ -268,7 +281,7 @@ export class Engine {
           if (this.salaCorrente.usa(tokens[1], tokens[2])) {
             if (this.#venceu === true) {
               console.log(
-                "Parabens, voce venceu! O sapo trevo foi encontrado e agora voce pode ir para a próxima aula"
+                "Parabens, você venceu! O sapo Trevo estava com frio mas se aproximou assim que a lareira foi acesa. Agora que ele foi encontrado, você pode ir para a próxima aula!"
               );
             }
 

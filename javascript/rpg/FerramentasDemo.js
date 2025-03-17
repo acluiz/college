@@ -17,7 +17,7 @@ export class PocaoFlamejante extends Ferramenta {
   static #quantidadeDisponivel = 2;
 
   constructor() {
-    super("pocao_flamejante");
+    super("pocao_flamejante", 2);
   }
 
   get quantidadeDisponivel() {

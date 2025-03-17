@@ -24,14 +24,14 @@ export class JogoDemo extends Engine {
     let salaoComunal = new SalaoComunal(this);
     let salaDefesaArtesTrevas = new SalaDefesaArtesTrevas(this);
 
-    this.salas = new Map([
-      ["Salao_Principal", salaoPrincipal],
-      ["Sala_Herbologia", salaHerbologia],
-      ["Sala_Professores", salaProfessores],
-      ["Sala_Pocoes", salaPocoes],
-      ["Salao_Comunal", salaoComunal],
-      ["Sala_Defesa_Artes_Trevas", salaDefesaArtesTrevas],
-    ]);
+    // this.salas = new Map([
+    //   ["Salao_Principal", salaoPrincipal],
+    //   ["Sala_Herbologia", salaHerbologia],
+    //   ["Sala_Professores", salaProfessores],
+    //   ["Sala_Pocoes", salaPocoes],
+    //   ["Salao_Comunal", salaoComunal],
+    //   ["Sala_Defesa_Artes_Trevas", salaDefesaArtesTrevas],
+    // ]);
 
     // Encadeia as salas através das portas
     salaoPrincipal.portas.set(salaHerbologia.nome, salaHerbologia);
