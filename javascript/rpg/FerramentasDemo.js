@@ -14,7 +14,17 @@ export class OculosMagico extends Ferramenta {
 }
 // ---------------------------------------------
 export class PocaoFlamejante extends Ferramenta {
+  static #quantidadeDisponivel = 2;
+
   constructor() {
     super("pocao_flamejante");
+  }
+
+  get quantidadeDisponivel() {
+    return PocaoFlamejante.#quantidadeDisponivel;
+  }
+
+  atualizaQuantidadeDisponivel() {
+    PocaoFlamejante.#quantidadeDisponivel -= 1;
   }
 }

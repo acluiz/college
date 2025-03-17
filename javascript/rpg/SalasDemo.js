@@ -33,20 +33,8 @@ export class SalaoPrincipal extends Sala {
       return false;
     }
 
-    let instancia_objeto = this.objetos.get(objeto);
-    let instancia_ferramenta = this.engine.mochila.pega(ferramenta);
-    let usou = instancia_objeto.usar(this.engine.mochila.pega(ferramenta));
-
-    if (usou && instancia_ferramenta instanceof PocaoFlamejante) {
-      this.engine.mochila.remove(instancia_ferramenta);
-
-      let salaPocoes = this.engine.getSala("Sala_Pocoes");
-
-      salaPocoes.ferramentas.set(
-        instancia_ferramenta.nome,
-        instancia_ferramenta
-      );
-    }
+    let instanciaObjeto = this.objetos.get(objeto);
+    let usou = instanciaObjeto.usar(this.engine.mochila.pega(ferramenta));
 
     return usou;
   }
@@ -72,8 +60,8 @@ export class SalaHerbologia extends Sala {
       return false;
     }
 
-    let obj = this.objetos.get(objeto);
-    let usou = obj.usar(this.engine.mochila.pega(ferramenta));
+    let instanciaObjeto = this.objetos.get(objeto);
+    let usou = instanciaObjeto.usar(this.engine.mochila.pega(ferramenta));
 
     return usou;
   }
@@ -148,10 +136,10 @@ export class SalaDefesaArtesTrevas extends Sala {
       return false;
     }
 
-    let obj = this.objetos.get(objeto);
-    let usou = obj.usar(this.engine.mochila.pega(ferramenta));
+    let instanciaObjeto = this.objetos.get(objeto);
+    let usou = instanciaObjeto.usar(this.engine.mochila.pega(ferramenta));
 
-    if (obj instanceof ArmarioBichoPapao && usou == true) {
+    if (instanciaObjeto instanceof ArmarioBichoPapao && usou == true) {
       this.engine.perdeJogo();
     }
 
@@ -179,10 +167,10 @@ export class SalaoComunal extends Sala {
       return false;
     }
 
-    let obj = this.objetos.get(objeto);
-    let usou = obj.usar(this.engine.mochila.pega(ferramenta));
+    let instanciaObjeto = this.objetos.get(objeto);
+    let usou = instanciaObjeto.usar(this.engine.mochila.pega(ferramenta));
 
-    if (obj instanceof Lareira && usou == true) {
+    if (instanciaObjeto instanceof Lareira && usou == true) {
       this.engine.venceJogo();
     }
 

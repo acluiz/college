@@ -34,13 +34,6 @@ export class Mochila {
     this.#ferramentas.push(ferramenta);
   }
 
-  remove(ferramenta) {
-    validate(ferramenta, Ferramenta);
-    this.#ferramentas = this.#ferramentas.filter(
-      (f) => f.nome !== ferramenta.nome
-    );
-  }
-
   pega(nomeFerramenta) {
     validate(arguments, ["String"]);
     let ferramenta = this.#ferramentas.find((f) => f.nome === nomeFerramenta);

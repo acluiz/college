@@ -10,10 +10,19 @@ export class Tocha extends Objeto {
 
   usar(ferramenta) {
     validate(ferramenta, Ferramenta);
+
     if (ferramenta instanceof PocaoFlamejante) {
+      if (ferramenta.quantidadeDisponivel === 0) {
+        this.engine.perdeJogo();
+      }
+
+      ferramenta.atualizaQuantidadeDisponivel();
+
       this.acaoOk = true;
+
       return true;
     }
+
     return false;
   }
 }
@@ -25,10 +34,19 @@ export class Lareira extends Objeto {
 
   usar(ferramenta) {
     validate(ferramenta, Ferramenta);
+
     if (ferramenta instanceof PocaoFlamejante) {
+      if (ferramenta.quantidadeDisponivel === 0) {
+        this.engine.perdeJogo();
+      }
+
+      ferramenta.atualizaQuantidadeDisponivel();
+
       this.acaoOk = true;
+
       return true;
     }
+
     return false;
   }
 }
@@ -78,10 +96,19 @@ export class Caldeirao extends Objeto {
 
   usar(ferramenta) {
     validate(ferramenta, Ferramenta);
+
     if (ferramenta instanceof PocaoFlamejante) {
+      if (ferramenta.quantidadeDisponivel === 0) {
+        this.engine.perdeJogo();
+      }
+
+      ferramenta.atualizaQuantidadeDisponivel();
+
       this.acaoOk = true;
+
       return true;
     }
+
     return false;
   }
 }
