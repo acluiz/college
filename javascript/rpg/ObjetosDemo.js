@@ -12,14 +12,7 @@ export class Tocha extends Objeto {
     validate(ferramenta, Ferramenta);
 
     if (ferramenta instanceof PocaoFlamejante) {
-      if (ferramenta.quantidadeDisponivel === 0) {
-        this.engine.perdeJogo();
-      }
-
-      ferramenta.atualizaQuantidadeDisponivel();
-
       this.acaoOk = true;
-
       return true;
     }
 
@@ -36,14 +29,7 @@ export class Lareira extends Objeto {
     validate(ferramenta, Ferramenta);
 
     if (ferramenta instanceof PocaoFlamejante) {
-      if (ferramenta.quantidadeDisponivel === 0) {
-        this.engine.perdeJogo();
-      }
-
-      ferramenta.atualizaQuantidadeDisponivel();
-
       this.acaoOk = true;
-
       return true;
     }
 
@@ -98,14 +84,7 @@ export class Caldeirao extends Objeto {
     validate(ferramenta, Ferramenta);
 
     if (ferramenta instanceof PocaoFlamejante) {
-      if (ferramenta.quantidadeDisponivel === 0) {
-        this.engine.perdeJogo();
-      }
-
-      ferramenta.atualizaQuantidadeDisponivel();
-
       this.acaoOk = true;
-
       return true;
     }
 

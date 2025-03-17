@@ -34,7 +34,16 @@ export class SalaoPrincipal extends Sala {
     }
 
     let instanciaObjeto = this.objetos.get(objeto);
-    let usou = instanciaObjeto.usar(this.engine.mochila.pega(ferramenta));
+    let instanciaFerramenta = this.engine.mochila.pega(ferramenta);
+    let usou = instanciaObjeto.usar(instanciaFerramenta);
+
+    if (usou && instanciaFerramenta instanceof PocaoFlamejante) {
+      instanciaFerramenta.atualizaQuantidadeDisponivel();
+
+      if (instanciaFerramenta.quantidadeDisponivel === 0) {
+        this.engine.perdeJogo("sem_ferramenta_necessaria");
+      }
+    }
 
     return usou;
   }
@@ -102,6 +111,7 @@ export class SalaPocoes extends Sala {
 
   usa(ferramenta, objeto) {
     validate(arguments, ["String", "String"]);
+
     if (!this.engine.mochila.tem(ferramenta)) {
       return false;
     }
@@ -110,9 +120,20 @@ export class SalaPocoes extends Sala {
       return false;
     }
 
-    let obj = this.objetos.get(objeto);
+    let instanciaObjeto = this.objetos.get(objeto);
+    let instanciaFerramenta = this.engine.mochila.pega(ferramenta);
 
-    return obj.usar(this.engine.mochila.pega(ferramenta));
+    let usou = instanciaObjeto.usar(instanciaFerramenta);
+
+    if (usou && instanciaFerramenta instanceof PocaoFlamejante) {
+      instanciaFerramenta.atualizaQuantidadeDisponivel();
+
+      if (instanciaFerramenta.quantidadeDisponivel === 0) {
+        this.engine.perdeJogo("sem_ferramenta_necessaria");
+      }
+    }
+
+    return usou;
   }
 }
 // ---------------------------------------------
@@ -140,7 +161,7 @@ export class SalaDefesaArtesTrevas extends Sala {
     let usou = instanciaObjeto.usar(this.engine.mochila.pega(ferramenta));
 
     if (instanciaObjeto instanceof ArmarioBichoPapao && usou == true) {
-      this.engine.perdeJogo();
+      this.engine.perdeJogo("acao_proibida");
     }
 
     return usou;

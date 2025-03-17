@@ -184,14 +184,14 @@ export class Engine {
   #mochila;
   #salaCorrente;
   #venceu;
-  #perdeu;
+  #tipo_derrota;
   #salas;
 
   constructor() {
     this.#mochila = new Mochila();
     this.#salaCorrente = null;
     this.#venceu = false;
-    this.#perdeu = false;
+    this.#tipo_derrota = null;
     this.#salas = new Map();
 
     this.criaCenario();
@@ -224,11 +224,11 @@ export class Engine {
 
   venceJogo() {
     this.#venceu = true;
-    this.#perdeu = false;
+    this.#tipo_derrota = null;
   }
 
-  perdeJogo() {
-    this.#perdeu = true;
+  perdeJogo(tipo_derrota) {
+    this.#tipo_derrota = tipo_derrota;
     this.#venceu = false;
   }
 
@@ -242,7 +242,7 @@ export class Engine {
     let novaSala = null;
     let acao = "";
     let tokens = null;
-    while (!this.#venceu && !this.#perdeu) {
+    while (!this.#venceu && !this.#tipo_derrota) {
       console.log("-------------------------");
       console.log(this.salaCorrente.textoDescricao());
       acao = prompt("O que voce deseja fazer? ");
@@ -266,12 +266,13 @@ export class Engine {
           break;
         case "usa":
           if (this.salaCorrente.usa(tokens[1], tokens[2])) {
-            if (this.#venceu == true) {
+            if (this.#venceu === true) {
               console.log(
                 "Parabens, voce venceu! O sapo trevo foi encontrado e agora voce pode ir para a próxima aula"
               );
             }
-            if (this.#perdeu == true) {
+
+            if (this.#tipo_derrota === "acao_proibida") {
               console.log(
                 "Oh, não! O armário foi aberto e havia um bicho papão dentro dele. Você tomou um susto tão grande que desmaiou e foi levado para enfermaria. Infelizmente você não encontrou o seu sapo a tempo da próxima aula e perdeu o jogo."
               );
@@ -280,6 +281,12 @@ export class Engine {
               );
               console.log(
                 "Infelizmente você não encontrou o seu sapo a tempo da próxima aula e perdeu o jogo."
+              );
+            }
+
+            if (this.#tipo_derrota === "sem_ferramenta_necessaria") {
+              console.log(
+                "Oh, não! Você desperdiçou uma ferramenta necessária e perdeu o jogo."
               );
             }
           } else {
