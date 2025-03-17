@@ -34,6 +34,13 @@ export class Mochila {
     this.#ferramentas.push(ferramenta);
   }
 
+  remove(ferramenta) {
+    validate(ferramenta, Ferramenta);
+    this.#ferramentas = this.#ferramentas.filter(
+      (f) => f.nome !== ferramenta.nome
+    );
+  }
+
   pega(nomeFerramenta) {
     validate(arguments, ["String"]);
     let ferramenta = this.#ferramentas.find((f) => f.nome === nomeFerramenta);
@@ -185,12 +192,15 @@ export class Engine {
   #salaCorrente;
   #venceu;
   #perdeu;
+  #salas;
 
   constructor() {
     this.#mochila = new Mochila();
     this.#salaCorrente = null;
     this.#venceu = false;
     this.#perdeu = false;
+    this.#salas = new Map();
+
     this.criaCenario();
   }
 
@@ -205,6 +215,18 @@ export class Engine {
   set salaCorrente(sala) {
     validate(sala, Sala);
     this.#salaCorrente = sala;
+  }
+
+  get salas() {
+    return this.#salas;
+  }
+
+  set salas(salas) {
+    this.#salas = salas;
+  }
+
+  getSala(nome) {
+    return this.#salas.get(nome);
   }
 
   venceJogo() {

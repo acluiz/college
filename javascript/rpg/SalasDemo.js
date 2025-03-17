@@ -24,7 +24,31 @@ export class SalaoPrincipal extends Sala {
 
   usa(ferramenta, objeto) {
     validate(arguments, ["String", "String"]);
-    return false;
+
+    if (!this.engine.mochila.tem(ferramenta)) {
+      return false;
+    }
+
+    if (!this.objetos.has(objeto)) {
+      return false;
+    }
+
+    let instancia_objeto = this.objetos.get(objeto);
+    let instancia_ferramenta = this.engine.mochila.pega(ferramenta);
+    let usou = instancia_objeto.usar(this.engine.mochila.pega(ferramenta));
+
+    if (usou && instancia_ferramenta instanceof PocaoFlamejante) {
+      this.engine.mochila.remove(instancia_ferramenta);
+
+      let salaPocoes = this.engine.getSala("Sala_Pocoes");
+
+      salaPocoes.ferramentas.set(
+        instancia_ferramenta.nome,
+        instancia_ferramenta
+      );
+    }
+
+    return usou;
   }
 }
 // ---------------------------------------------
@@ -39,7 +63,19 @@ export class SalaHerbologia extends Sala {
 
   usa(ferramenta, objeto) {
     validate(arguments, ["String", "String"]);
-    return false;
+
+    if (!this.engine.mochila.tem(ferramenta)) {
+      return false;
+    }
+
+    if (!this.objetos.has(objeto)) {
+      return false;
+    }
+
+    let obj = this.objetos.get(objeto);
+    let usou = obj.usar(this.engine.mochila.pega(ferramenta));
+
+    return usou;
   }
 }
 // ---------------------------------------------
